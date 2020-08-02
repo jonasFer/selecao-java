@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Usuario} from '../usuario.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import {UsuarioService} from '../usuario.service';
+import {UsuarioService} from '../../../shared/services/usuario.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {error} from 'util';
 
 @Component({
   selector: 'app-usuario-form',
@@ -19,7 +18,7 @@ export class UsuarioFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
-    private usuarioService: UsuarioService,
+    private usuarioService: UsuarioService
   ) {
     this.usuarioId = this.route.snapshot.paramMap.get('id');
   }
@@ -52,7 +51,7 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   cadastrar() {
-    this.usuarioService.cadastrar(this.formUsuario.value)
+    this.usuarioService.save(this.formUsuario.value)
       .subscribe(
         data => {
           this.router.navigate(['/admin/usuario']);
@@ -64,7 +63,7 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   editar() {
-    this.usuarioService.editar(this.usuarioId, this.formUsuario.value)
+    this.usuarioService.edit(this.usuarioId, this.formUsuario.value)
       .subscribe(
         data => {
           this.router.navigate(['/admin/usuario']);
@@ -76,7 +75,7 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   obterDadosUsuario() {
-    this.usuarioService.buscarPorId(this.usuarioId)
+    this.usuarioService.getById(this.usuarioId)
       .subscribe(
         dados => {
           const data = dados;

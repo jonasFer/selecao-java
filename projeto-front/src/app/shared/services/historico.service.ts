@@ -2,46 +2,46 @@ import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Usuario } from './usuario.model';
-import { HttpUtilService } from '../../shared/services/HttpUtilService';
+import { HttpUtilService } from './http-util-service';
+import {Historico} from '../../admin/historico/historico.model';
 
 @Injectable()
 
-export class UsuarioService {
-  private readonly PATH: string = 'http://localhost:8080/usuario';
+export class HistoricoService {
+  private readonly PATH: string = 'http://localhost:8080/historico';
 
   constructor(
     private http: HttpClient,
     private httpUtil: HttpUtilService
   ) { }
 
-  getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.PATH)
+  getHistorico(): Observable<Historico[]> {
+    return this.http.get<Historico[]>(this.PATH)
       .pipe(
         tap(),
-        catchError(this.httpUtil.handleError('getUsuarios', []))
+        catchError(this.httpUtil.handleError('getHistorico', []))
       );
   }
 
-  cadastrar(usuario: Usuario): Observable<any> {
+  save(historico: Historico): Observable<any> {
     return this.http.post(
       this.PATH,
-      usuario,
+      historico,
       this.httpUtil.headers()
     );
   }
 
-  editar(id: string, usuario: Usuario): Observable<any> {
+  edit(id: string, historico: Historico): Observable<any> {
     return this.http.put(
       this.PATH + '/' + id,
-      usuario,
+      historico,
       this.httpUtil.headers()
     );
   }
 
   buscarPorId(id: string): Observable<any> {
     return this.http.get(
-       this.PATH + '/' + id,
+      this.PATH + '/' + id,
       this.httpUtil.headers()
     );
   }

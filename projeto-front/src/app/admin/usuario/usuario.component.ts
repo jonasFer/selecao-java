@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Usuario} from './usuario.model';
-import {UsuarioService} from './usuario.service';
+import {UsuarioService} from '../../shared/services/usuario.service';
 
 @Component({
   selector: 'app-usuario',
@@ -18,7 +18,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   getAllUsuarios() {
-    this.service.getUsuarios()
+    this.service.getAll()
       .subscribe(data => {
         this.usuarios = data;
       }, error => {
@@ -27,7 +27,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   deletar(id: number) {
-    this.service.deletar(id)
+    this.service.delete(id)
       .subscribe(
         data => {
           alert('Usuário deletado');

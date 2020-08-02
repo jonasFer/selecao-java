@@ -2,19 +2,24 @@
   <nav class="navbar navbar-static-top">
     <div class="container">
       <div class="navbar-header">
-        <a [routerLink]="['/']" class="navbar-brand"><b>Admin</b>LTE</a>
+        <a [routerLink]="['home']" class="navbar-brand"><b>Admin</b>LTE</a>
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
           <i class="fa fa-bars"></i>
         </button>
         <ul class="nav navbar-nav">
           <li routerLinkActive="active">
-            <a [routerLink]="['/admin']">
+            <a [routerLink]="['home']">
               Home
             </a>
           </li>
           <li routerLinkActive="active">
-            <a [routerLink]="['/admin/usuario']">
+            <a [routerLink]="['usuario']">
               Usuários
+            </a>
+          </li>
+          <li routerLinkActive="active">
+            <a [routerLink]="['historico']">
+              Histórico de Vendas
             </a>
           </li>
         </ul>
