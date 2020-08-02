@@ -57,4 +57,9 @@ public class RevendaServiceImpl implements RevendaService {
 
         return revendaRepository.findRevendaByMunicipio(municipio);
     }
+
+    @Override
+    public List<Revenda> findAll() {
+        return revendaRepository.findAll();
+    }
 }

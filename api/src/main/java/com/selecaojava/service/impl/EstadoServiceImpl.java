@@ -31,7 +31,6 @@ public class EstadoServiceImpl implements EstadoService {
                     Estado estado = new Estado(sigla, regiao);
                     estadoRepository.save(estado);
                     estadoHashMap.put(sigla, estado);
-                    System.out.println("Estados");
                 }
             }
         }

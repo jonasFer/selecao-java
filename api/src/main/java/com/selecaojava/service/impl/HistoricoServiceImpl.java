@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,14 +59,16 @@ public class HistoricoServiceImpl implements HistoricoService {
                 .findById(id)
                 .map(historicoBanco ->  {
                     try {
+                        float valorVenda = parseFloat(historicoDto.getValorVenda());
+                        float valorCusto = parseFloat(historicoDto.getValorCusto());
                         historicoBanco.setRevenda(revendaService.byId(historicoDto.getRevenda()));
                         historicoBanco.setBandeira(bandeiraService.byId(historicoDto.getBandeira()));
                         historicoBanco.setProduto(produtoService.byId(historicoDto.getProduto()));
-                        historicoBanco.setValorCompra(historicoDto.getValorCusto());
-                        historicoBanco.setValorVenda(historicoDto.getValorVenda());
+                        historicoBanco.setValorCompra(valorCusto);
+                        historicoBanco.setValorVenda(valorVenda);
                         historicoBanco.setUnidade(historicoDto.getUnidade());
                         historicoBanco
-                                .setData((new SimpleDateFormat("yyyy-MM-dd"))
+                                .setData((new SimpleDateFormat("dd/MM/yyyy"))
                                 .parse(historicoDto.getDataColeta()));
 
                         historicoRepository.save(historicoBanco);
@@ -85,10 +88,10 @@ public class HistoricoServiceImpl implements HistoricoService {
         historico.setRevenda(revendaService.byId(historicoDto.getRevenda()));
         historico.setBandeira(bandeiraService.byId(historicoDto.getBandeira()));
         historico.setProduto(produtoService.byId(historicoDto.getProduto()));
-        historico.setValorCompra(historicoDto.getValorCusto());
-        historico.setValorVenda(historicoDto.getValorVenda());
+        historico.setValorCompra(parseFloat(historicoDto.getValorCusto()));
+        historico.setValorVenda(parseFloat(historicoDto.getValorVenda()));
         historico.setUnidade(historicoDto.getUnidade());
-        historico.setData((new SimpleDateFormat("yyyy-MM-dd")).parse(historicoDto.getDataColeta()));
+        historico.setData((new SimpleDateFormat("dd/MM/yyyy")).parse(historicoDto.getDataColeta()));
 
         historicoRepository.save(historico);
 
@@ -190,12 +193,17 @@ public class HistoricoServiceImpl implements HistoricoService {
     }
 
     private HistoricoDto converterToDto(Historico historico) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DecimalFormat decimalFormat = new DecimalFormat("0.00000");
         return new HistoricoDto(
+                historico.getId(),
                 historico.getRevenda().getId(),
+                historico.getRevenda().getNome(),
                 historico.getProduto().getId(),
-                historico.getData().toString(),
-                historico.getValorVenda(),
-                historico.getValorCompra(),
+                historico.getProduto().getNome(),
+                dateFormat.format(historico.getData()),
+                decimalFormat.format(historico.getValorVenda()),
+                decimalFormat.format(historico.getValorCompra()),
                 historico.getUnidade(),
                 historico.getBandeira().getId()
         );

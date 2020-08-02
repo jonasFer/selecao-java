@@ -48,4 +48,9 @@ public class BandeiraServiceImpl implements BandeiraService {
                         new RegisterNotFoundException("Bandeira não encontrada")
                 );
     }
+
+    @Override
+    public List<Bandeira> findAll() {
+        return bandeiraRepository.findAll();
+    }
 }

@@ -11,4 +11,6 @@ public interface BandeiraService {
     public Bandeira byId(Long id);
 
     public Bandeira findBandeiraByNome(String nome);
+
+    public List<Bandeira> findAll();
 }

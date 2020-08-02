@@ -8,6 +8,8 @@ public interface ProdutoService {
 
     public void saveFromCsv(List<String[]> dados);
 
+    public List<Produto> findAll();
+
     public Produto byId(Long id);
 
     public Produto findProdutoByNome(String nome);

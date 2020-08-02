@@ -13,4 +13,6 @@ public interface RevendaService {
     public Revenda findRevendaByNome(String nome);
 
     public List<Revenda> findAllByMunicipio(String municipio);
+
+    public List<Revenda> findAll();
 }
