@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title">Usuários</h3>
+        <div class="box-tools">
+          <a [routerLink]="['formulario']">
+            <button class="btn btn-primary">
+              <i class="fa fa-plus"> </i>
+              Adicionar
+            </button>
+          </a>
+        </div>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th class="text-center">Nome</th>
+              <th class="text-right">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios" id="row-{{ usuario.id }}">
+              <td class="text-center">{{ usuario.nome }}</td>
+              <td class="text-right">
+                <a [routerLink]="['formulario', usuario.id]">
+                <button class="btn btn-default btn-sm btn-flat margin-r-5">
+                  <i class="fa fa-pencil"></i>
+                </button>
+                </a>
+                <button (click)="deletar(usuario.id)" class="btn btn-danger btn-sm btn-flat">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
